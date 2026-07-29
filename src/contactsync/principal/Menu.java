@@ -1,6 +1,8 @@
 package contactsync.principal;
+import contactsync.excecao.CampoObrigatorioException;
 import contactsync.servico.Agenda;
 import java.util.Scanner;
+import contactsync.validacao.ValidadorContato;
 
 //Responsável pela interação comm o usuário.
 public class Menu {

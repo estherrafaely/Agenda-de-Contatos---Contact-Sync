@@ -8,5 +8,4 @@ public class CampoObrigatorioException extends Exception {
         super(mensagem); //Envia a mensagem para a classe Exception
     }
 
-
 }
