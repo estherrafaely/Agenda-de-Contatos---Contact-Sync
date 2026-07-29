@@ -18,9 +18,9 @@ public class ValidadorContato {
 
         validarEmail(contato.getEmail());
 
-        validarCategoria(contato.getCategoria().name());
+        validarCategoria(contato.getCategoria());
 
-        validarEndereco(contato.getCategoria().name(),
+        validarEndereco(contato.getCategoria(),
                 contato.getEndereco());
 
         validarDuplicidade(contato, contatos);
@@ -66,7 +66,7 @@ public class ValidadorContato {
     }
 
     // Valida categoria
-    public void validarCategoria(String categoria)
+    public static void validarCategoria(String categoria)
             throws CampoObrigatorioException {
 
         if (categoria == null || categoria.isBlank()) {
