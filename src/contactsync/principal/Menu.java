@@ -124,6 +124,7 @@ public class Menu {
             }
         }
     }
+    //exibi categoria
     public void exibirCategoria(){
 
         System.out.println("1 - Família");
