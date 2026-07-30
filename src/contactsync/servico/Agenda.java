@@ -18,7 +18,7 @@ public class Agenda {
 
     public Agenda() {
 
-        repositorio = new ArquivoContato("contatos.csv");
+        repositorio = new ArquivoContato("dados/contatos.csv");
 
         try {
             contatos = repositorio.carregar();

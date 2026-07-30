@@ -58,10 +58,11 @@ public class ArquivoContato implements RepositorioContato {
 
                 String linha;
 
-                // Lê cada linha do arquivo até o final.
+                // Lê e ignora a primeira linha (cabeçalho)
+                reader.readLine();
+
                 while ((linha = reader.readLine()) != null) {
 
-                    // Ignora linhas em branco.
                     if (!linha.isBlank()) {
                         contatos.add(Contato.fromCSV(linha));
                     }
