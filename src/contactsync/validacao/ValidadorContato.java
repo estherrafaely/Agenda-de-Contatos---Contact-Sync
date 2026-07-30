@@ -75,18 +75,12 @@ public class ValidadorContato {
                     "Categoria obrigatória.");
         }
     }
-
+    //Valida endereço
     // Endereço é opcional
     public static void validarEndereco(String categoria,
                                 String endereco)
             throws CampoObrigatorioException {
 
-        if (categoria.equalsIgnoreCase("Empresa") &&
-                (endereco == null || endereco.isBlank())) {
-
-            throw new CampoObrigatorioException(
-                    "O endereço é obrigatório para contatos da categoria Empresa.");
-        }
     }
 
     // Verifica duplicidade de telefone e e-mail
