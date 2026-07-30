@@ -377,45 +377,39 @@ public class Menu {
 
         while (true) {
 
-            try {
+            // Exibe as categorias
+            exibirCategoria();
 
-                // Exibe as categorias disponíveis
-                exibirCategoria();
+            System.out.print("Escolha uma categoria: ");
 
-                System.out.print("Escolha a categoria: ");
-                String opcao = scanner.nextLine();
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // Limpa o buffer
 
-                // Valida a opção informada
-                ValidadorContato.validarCategoria(opcao);
+            switch (opcao) {
 
-                // Converte o número escolhido para o nome da categoria
-                switch (opcao) {
+                case 1:
+                    return "Família";
 
-                    case "1":
-                        return "Família";
+                case 2:
+                    return "Amigos";
 
-                    case "2":
-                        return "Amigos";
+                case 3:
+                    return "Trabalho";
 
-                    case "3":
-                        return "Trabalho";
+                case 4:
+                    return "Faculdade";
 
-                    case "4":
-                        return "Faculdade";
+                case 5:
+                    return "Empresa";
 
-                    case "5":
-                        return "Empresa";
+                case 6:
+                    return "Outros";
 
-                    case "6":
-                        return "Outros";
-                }
-
-            } catch (CampoObrigatorioException e) {
-
-                System.out.println(e.getMessage());
-
+                default:
+                    System.out.println("Categoria inválida! Tente novamente.");
             }
         }
+
     }
     public void exibirCategoria(){
 
