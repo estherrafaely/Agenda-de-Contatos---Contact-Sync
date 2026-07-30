@@ -1,5 +1,6 @@
 package contactsync.repositorio;
 
+import contactsync.excecao.ArquivoException;
 import contactsync.modelo.Contato;
 
 import java.io.*;
@@ -11,7 +12,6 @@ public class ArquivoContato implements RepositorioContato {
     private String caminhoArquivo;
 
     //Construtor da classe, Inicializa o caminho do arquivo onde os contatos serão armazenados.
-
     public ArquivoContato(String caminhoArquivo) {
         this.caminhoArquivo = caminhoArquivo;
     }
@@ -19,7 +19,7 @@ public class ArquivoContato implements RepositorioContato {
     // Salva todos os contatos da agenda no arquivo CSV.
     // Cada contato é convertido para uma linha de texto usando o metodo toCSV().
     @Override
-    public void salvar(ArrayList<Contato> contatos) throws IOException {
+    public void salvar(ArrayList<Contato> contatos) throws ArquivoException {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo))) {
 
@@ -28,6 +28,9 @@ public class ArquivoContato implements RepositorioContato {
                 writer.newLine();
             }
 
+        } catch (IOException e) {
+            throw new ArquivoException(
+                    "Não foi possível salvar os contatos no arquivo: " + e.getMessage());
         }
     }
 
@@ -40,33 +43,39 @@ public class ArquivoContato implements RepositorioContato {
      * lista vazia é retornada.
      *
      * @return lista de contatos carregados do arquivo.
-     * @throws IOException caso ocorra erro na leitura do arquivo.
+     * @throws ArquivoException caso ocorra erro na leitura do arquivo.
      */
     @Override
-    public ArrayList<Contato> carregar() throws IOException {
+    public ArrayList<Contato> carregar() throws ArquivoException {
 
         ArrayList<Contato> contatos = new ArrayList<>();
 
         File arquivo = new File(caminhoArquivo);
 
-        // Cria o arquivo caso ele ainda não exista.
-        if (!arquivo.exists()) {
-            arquivo.createNewFile();
-            return contatos;
-        }
+        try {
+            // Cria o arquivo caso ele ainda não exista.
+            if (!arquivo.exists()) {
+                arquivo.createNewFile();
+                return contatos;
+            }
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(arquivo))) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(arquivo))) {
 
-            String linha;
+                String linha;
 
-            // Lê cada linha do arquivo até o final.
-            while ((linha = reader.readLine()) != null) {
+                // Lê cada linha do arquivo até o final.
+                while ((linha = reader.readLine()) != null) {
 
-                // Ignora linhas em branco.
-                if (!linha.isBlank()) {
-                    contatos.add(Contato.fromCSV(linha));
+                    // Ignora linhas em branco.
+                    if (!linha.isBlank()) {
+                        contatos.add(Contato.fromCSV(linha));
+                    }
                 }
             }
+
+        } catch (IOException e) {
+            throw new ArquivoException(
+                    "Não foi possível carregar os contatos do arquivo: " + e.getMessage());
         }
 
         return contatos;
