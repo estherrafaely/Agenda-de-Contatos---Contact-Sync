@@ -27,7 +27,7 @@ public class ValidadorContato {
     }
 
     // Valida o nome
-    public void validarNome(String nome)
+    public static void validarNome(String nome)
             throws CampoObrigatorioException {
 
         if (nome == null || nome.isBlank()) {
@@ -37,7 +37,7 @@ public class ValidadorContato {
     }
 
     // Valida o telefone
-    public void validarTelefone(String telefone)
+    public static void validarTelefone(String telefone)
             throws CampoObrigatorioException {
 
         if (telefone == null || telefone.isBlank()) {
@@ -52,7 +52,7 @@ public class ValidadorContato {
     }
 
     // Valida o e-mail (opcional, mas quando informado deve ser válido)
-    public void validarEmail(String email)
+    public static void validarEmail(String email)
             throws CampoObrigatorioException {
 
         if (email == null || email.isBlank()) {
@@ -76,7 +76,7 @@ public class ValidadorContato {
     }
 
     // Endereço é opcional
-    public void validarEndereco(String categoria,
+    public static void validarEndereco(String categoria,
                                 String endereco)
             throws CampoObrigatorioException {
 
