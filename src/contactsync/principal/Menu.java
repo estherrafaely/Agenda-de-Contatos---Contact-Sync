@@ -184,10 +184,36 @@ public class Menu {
         }
     }
     public void excluirContato(){
-        //*
+
+        try {
+            //Pedir o nome do contato
+            System.out.println("Digite o nome do contato que deseja excluir: ");
+            String nome = scanner.nextLine();
+
+            //Solicitar que Agenda exclua o contato
+            agenda.excluirContato(nome);
+            System.out.println("Contato excluido com sucesso!");
+
+        } catch (ContatoNaoEncontradoException e){
+            System.out.println(e.getMessage());//Exibe a mensagem da excecao
+        }
+
     }
     public void listarContatos(){
-        //*
+
+        //obtém a lista de contatos da Agenda
+        ArrayList<Contato> contatos = agenda.listarContatos();
+
+        //Verifica se existe contatos cadastrados
+        if (contatos.isEmpty()){
+            System.out.println("Nenhum contato cadastrado.");
+        } else {
+            //Exibe todos os contatos
+            for (Contato contato : contatos){
+                System.out.println(contato);
+            }
+        }
+
     }
     public void pesquisarContato() {
 

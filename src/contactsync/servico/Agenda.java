@@ -20,7 +20,7 @@ public class Agenda {
 
         contatos = new ArrayList<>();
 
-        repositorio = new ArquivoContato("contato.txt");
+        repositorio = new ArquivoContato("contato.csv");
     }
 
     public void adicionarContato(Contato contato) throws CampoObrigatorioException, ContatoDuplicadoException {
