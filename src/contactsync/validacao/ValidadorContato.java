@@ -74,18 +74,6 @@ public class ValidadorContato {
             throw new CampoObrigatorioException(
                     "Categoria obrigatória.");
         }
-
-        // Verifica se a categoria existe
-        if (!categoria.equalsIgnoreCase("Família") &&
-                !categoria.equalsIgnoreCase("Amigos") &&
-                !categoria.equalsIgnoreCase("Trabalho") &&
-                !categoria.equalsIgnoreCase("Faculdade") &&
-                !categoria.equalsIgnoreCase("Empresa") &&
-                !categoria.equalsIgnoreCase("Outros")) {
-
-            throw new CampoObrigatorioException(
-                    "Categoria inválida.");
-        }
     }
 
     // Endereço é opcional

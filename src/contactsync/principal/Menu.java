@@ -404,10 +404,25 @@ public class Menu {
                     return "Empresa";
 
                 case 6:
-                    return "Outros";
+                    System.out.print("Digite o nome da nova categoria: ");
+                    String novaCategoria = scanner.nextLine().trim();
 
-                default:
-                    System.out.println("Categoria inválida! Tente novamente.");
+                    if (novaCategoria.isBlank()) {
+                        System.out.println("Categoria não pode estar vazia.");
+                        break;
+                    }
+
+                    if (novaCategoria.equalsIgnoreCase("Família") ||
+                            novaCategoria.equalsIgnoreCase("Amigos") ||
+                            novaCategoria.equalsIgnoreCase("Trabalho") ||
+                            novaCategoria.equalsIgnoreCase("Faculdade") ||
+                            novaCategoria.equalsIgnoreCase("Empresa")) {
+
+                        System.out.println("Essa categoria já existe!");
+                        break;
+                    }
+
+                    return novaCategoria;
             }
         }
 
