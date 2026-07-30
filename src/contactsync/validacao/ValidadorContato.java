@@ -69,9 +69,20 @@ public class ValidadorContato {
     public static void validarCategoria(String categoria)
             throws CampoObrigatorioException {
 
+        // Verifica se a categoria foi informada
         if (categoria == null || categoria.isBlank()) {
-            throw new CampoObrigatorioException(
-                    "Categoria obrigatória.");
+            throw new CampoObrigatorioException("Categoria obrigatória.");
+        }
+
+        // Verifica se a categoria é uma das opções válidas
+        if (!categoria.equals("1") &&
+                !categoria.equals("2") &&
+                !categoria.equals("3") &&
+                !categoria.equals("4") &&
+                !categoria.equals("5") &&
+                !categoria.equals("6")) {
+
+            throw new CampoObrigatorioException("Categoria inválida.");
         }
     }
 

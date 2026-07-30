@@ -71,7 +71,7 @@ public class Menu {
 
     public void exibirMenu(){
 
-        System.out.println("/n===== CONTACT SYNC =====");
+        System.out.println("\n===== CONTACT SYNC =====");
 
         System.out.println("1 - Cadastrar Contato");
 
@@ -95,23 +95,51 @@ public class Menu {
 
         try{
 
-            //Lê os dados do novo contato
-            System.out.println("Nome: ");
-            String nome = scanner.nextLine();
+            String nome;
+            String telefone;
 
-            System.out.println("Telefone: ");
-            String telefone = scanner.nextLine();
+            // Lê e valida o nome
+            while (true) {
+                System.out.print("Nome: ");
+                nome = scanner.nextLine();
 
+                try {
+                    ValidadorContato.validarNome(nome);
+                    break;
+                } catch (CampoObrigatorioException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+
+            // Lê e valida o telefone
+            while (true) {
+                System.out.print("Telefone: ");
+                telefone = scanner.nextLine();
+
+                try {
+                    ValidadorContato.validarTelefone(telefone);
+                    break;
+                } catch (CampoObrigatorioException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+
+            //Campo opcional
             System.out.println("Email: ");
             String email = scanner.nextLine();
 
             //Lê e valida categoria
             String categoria = lerCategoria();
 
-            System.out.println("Endereço: ");
-            String endereco = scanner.nextLine();
+            // Endereço só para Empresa
+            String endereco = "";
+            if (categoria.equalsIgnoreCase("Empresa")) {
+                System.out.print("Endereço: ");
+                endereco = scanner.nextLine();
+            }
 
-            System.out.println("Obeservações: ");
+            //Campo opcional
+            System.out.println("Observações: ");
             String observacoes = scanner.nextLine();
 
             //Cria o objeto contato utilizando o construtor
@@ -143,22 +171,51 @@ public class Menu {
             System.out.println("Nome do contato que deseja editar: ");
             String nome = scanner.nextLine();
 
-            System.out.println("Novo nome: ");
-            String novoNome = scanner.nextLine();
+            String novoNome;
+            String telefone;
 
-            System.out.println("Novo telefone: ");
-            String telefone = scanner.nextLine();
+            // Lê e valida o novo nome
+            while (true) {
+                System.out.print("Novo nome: ");
+                novoNome = scanner.nextLine();
 
+                try {
+                    ValidadorContato.validarNome(novoNome);
+                    break;
+                } catch (CampoObrigatorioException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+
+            // Lê e valida o novo telefone
+            while (true) {
+                System.out.print("Novo telefone: ");
+                telefone = scanner.nextLine();
+
+                try {
+                    ValidadorContato.validarTelefone(telefone);
+                    break;
+                } catch (CampoObrigatorioException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+
+            //Campo opcional
             System.out.println("Novo email: ");
             String email = scanner.nextLine();
 
             //Lê e valida categoria
             String categoria = lerCategoria();
 
-            System.out.println("Novo endereço: ");
-            String endereco = scanner.nextLine();
+            // Endereço só para Empresa
+            String endereco = "";
+            if (categoria.equalsIgnoreCase("Empresa")) {
+                System.out.print("Endereço: ");
+                endereco = scanner.nextLine();
+            }
 
-            System.out.println("Novas obeservações: ");
+            //Campo opcional
+            System.out.println("Novas observações: ");
             String observacoes = scanner.nextLine();
 
             //Cria o objeto com os dados atualizados
@@ -317,24 +374,52 @@ public class Menu {
         System.out.println("Contato desfavoritado com sucesso!");//Exibe mensagem de confirmação
     }
     public String lerCategoria(){
-        //System.out.print("Digite a categoria: ");
-        //String categoria = scanner.nextLine();
-        //return categoria;
+
         while (true) {
+
             try {
-                System.out.print("Digite a categoria: ");
-                String categoria = scanner.nextLine();
 
-                ValidadorContato.validarCategoria(categoria);
+                // Exibe as categorias disponíveis
+                exibirCategoria();
 
-                return categoria;
+                System.out.print("Escolha a categoria: ");
+                String opcao = scanner.nextLine();
+
+                // Valida a opção informada
+                ValidadorContato.validarCategoria(opcao);
+
+                // Converte o número escolhido para o nome da categoria
+                switch (opcao) {
+
+                    case "1":
+                        return "Família";
+
+                    case "2":
+                        return "Amigos";
+
+                    case "3":
+                        return "Trabalho";
+
+                    case "4":
+                        return "Faculdade";
+
+                    case "5":
+                        return "Empresa";
+
+                    case "6":
+                        return "Outros";
+                }
 
             } catch (CampoObrigatorioException e) {
+
                 System.out.println(e.getMessage());
+
             }
         }
     }
     public void exibirCategoria(){
+
+        System.out.println("\nCategoria disponíveis: ");
 
         System.out.println("1 - Família");
 
