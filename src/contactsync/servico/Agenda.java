@@ -16,23 +16,30 @@ public class Agenda {
     private ArrayList<Contato> contatos;
     private RepositorioContato repositorio;
 
-    public Agenda(){
+    public Agenda() {
 
-        contatos = new ArrayList<>();
+        repositorio = new ArquivoContato("contatos.csv");
 
-        repositorio = new ArquivoContato("contato.csv");
+        try {
+            contatos = repositorio.carregar();
+        } catch (ArquivoException e) {
+            contatos = new ArrayList<>();
+        }
     }
 
-    public void adicionarContato(Contato contato) throws CampoObrigatorioException, ContatoDuplicadoException {
-        // Valida os campos obrigatórios
+    public void adicionarContato(Contato contato)
+            throws CampoObrigatorioException,
+            ContatoDuplicadoException,
+            ArquivoException {
+
+        System.out.println("Recebido: " + contato);
+
         ValidadorContato.validarNome(contato.getNome());
         ValidadorContato.validarTelefone(contato.getTelefone());
         ValidadorContato.validarEmail(contato.getEmail());
         ValidadorContato.validarCategoria(contato.getCategoria());
 
-        // Verifica se já existe um contato com o mesmo telefone ou e-mail
         for (Contato c : contatos) {
-
             if (c.getTelefone().equals(contato.getTelefone())
                     || c.getEmail().equalsIgnoreCase(contato.getEmail())) {
 
@@ -40,20 +47,18 @@ public class Agenda {
             }
         }
 
-        // Adiciona o contato na agenda
         contatos.add(contato);
 
+        repositorio.salvar(contatos);
     }
 
-    public void editarContato(String nome, Contato contatoAtualizado) throws ContatoNaoEncontradoException{
+    public void editarContato(String nome, Contato contatoAtualizado)
+            throws ContatoNaoEncontradoException, ArquivoException {
 
-        // Percorre todos os contatos da agenda
         for (Contato c : contatos) {
 
-            // Verifica se o nome informado é igual ao do contato
             if (c.getNome().equalsIgnoreCase(nome)) {
 
-                // Atualiza os dados do contato
                 c.setNome(contatoAtualizado.getNome());
                 c.setTelefone(contatoAtualizado.getTelefone());
                 c.setEmail(contatoAtualizado.getEmail());
@@ -62,16 +67,17 @@ public class Agenda {
                 c.setObservacoes(contatoAtualizado.getObservacoes());
                 c.setFavorito(contatoAtualizado.isFavorito());
 
-                // Encerra o metodo após editar
+                repositorio.salvar(contatos);
+
                 return;
             }
         }
 
-        // Se não encontrou o contato
         throw new ContatoNaoEncontradoException("Contato não encontrado.");
     }
 
-    public boolean excluirContato(String nome) throws ContatoNaoEncontradoException {
+    public boolean excluirContato(String nome)
+            throws ContatoNaoEncontradoException, ArquivoException {
 
         boolean removido = false;
 
@@ -89,6 +95,8 @@ public class Agenda {
             throw new ContatoNaoEncontradoException("Contato não encontrado.");
         }
 
+        repositorio.salvar(contatos);
+
         return true;
     }
 
@@ -96,6 +104,7 @@ public class Agenda {
         ordenarContatos();
         return contatos;
     }
+
     public ArrayList<Contato> pesquisarPorNome(String nome){
 
         // Lista que armazenará os contatos encontrados
@@ -188,34 +197,33 @@ public class Agenda {
         contatos.sort(Comparator.comparing(Contato::getNome, String.CASE_INSENSITIVE_ORDER));
     }
 
-    public void marcaFavorito(String nome) {
-        // Percorre todos os contatos da agenda
+    public void marcaFavorito(String nome)
+            throws ArquivoException {
+
         for (Contato contato : contatos) {
 
-            // Verifica se o nome informado pertence ao contato
             if (contato.getNome().equalsIgnoreCase(nome)) {
 
-                // Marca o contato como favorito
                 contato.setFavorito(true);
 
-                // Encerra o metodo
+                repositorio.salvar(contatos);
+
                 return;
             }
         }
     }
 
-    public void desmarcarFavorito(String nome){
+    public void desmarcarFavorito(String nome)
+            throws ArquivoException {
 
-        // Percorre todos os contatos da agenda
         for (Contato contato : contatos) {
 
-            // Verifica se o nome informado pertence ao contato
             if (contato.getNome().equalsIgnoreCase(nome)) {
 
-                // Marca o contato como favorito
                 contato.setFavorito(false);
 
-                // Encerra o metodo
+                repositorio.salvar(contatos);
+
                 return;
             }
         }

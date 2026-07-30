@@ -1,4 +1,5 @@
 package contactsync.principal;
+import contactsync.excecao.ArquivoException;
 import contactsync.excecao.CampoObrigatorioException;
 import contactsync.excecao.ContatoDuplicadoException;
 import contactsync.excecao.ContatoNaoEncontradoException;
@@ -21,7 +22,7 @@ public class Menu {
 
     //Enquanto o usuario não escolher sair ele mostra o menu
     //ler a opção e chama o metodo correspondente
-    public void iniciar(){
+    public void iniciar() throws ArquivoException {
 
         int opcao;
         // O menu é executado pelo menos uma vez e continuará
@@ -159,7 +160,7 @@ public class Menu {
             //Exibir mensagem de sucesso
             System.out.println("Contato cadastrado com sucesso!");
 
-        } catch (CampoObrigatorioException | ContatoDuplicadoException e) {
+        } catch (CampoObrigatorioException | ContatoDuplicadoException | ArquivoException e) {
             //Exibe a mensagem da exceção
             System.out.println(e.getMessage());
         }
@@ -235,7 +236,7 @@ public class Menu {
             //Exibir mensagem de sucesso
             System.out.println("Contato cadastrado com sucesso!");
 
-        } catch (ContatoNaoEncontradoException e) {
+        } catch (ContatoNaoEncontradoException| ArquivoException e) {
             //Exibe a mensagem da exceção
             System.out.println(e.getMessage());
         }
@@ -251,7 +252,7 @@ public class Menu {
             agenda.excluirContato(nome);
             System.out.println("Contato excluido com sucesso!");
 
-        } catch (ContatoNaoEncontradoException e){
+        } catch (ContatoNaoEncontradoException| ArquivoException e){
             System.out.println(e.getMessage());//Exibe a mensagem da excecao
         }
 
@@ -353,7 +354,7 @@ public class Menu {
                 System.out.println("Opção inválida: ");
         }
     }
-    public void favoritarContato(){
+    public void favoritarContato() throws ArquivoException {
 
         //Pedir o nome do contato
         System.out.println("Digite o nome do contato que deseja fovoritar: ");
@@ -363,7 +364,7 @@ public class Menu {
         agenda.marcaFavorito(nome);
         System.out.println("Contato favoritado com sucesso!");//Exibe mensagem de confirmação
     }
-    public void desfavoritar(){
+    public void desfavoritar() throws ArquivoException {
 
         //Pedir o nome do contato
         System.out.println("Digite o nome do contato que deseja fovoritar: ");

@@ -1,5 +1,7 @@
 package contactsync.principal;
 
+import contactsync.excecao.ArquivoException;
+
 //Responsável por iniciar o programa.
 public class Main{
     public static void main (String[] args){
@@ -7,6 +9,10 @@ public class Main{
         //Criação do objeto Menu, usado para inicializar o Menu
         Menu menu = new Menu();
 
-        menu.iniciar();
+        try {
+            menu.iniciar();
+        } catch (ArquivoException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

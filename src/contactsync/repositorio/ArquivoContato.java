@@ -24,6 +24,8 @@ public class ArquivoContato implements RepositorioContato {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo))) {
 
             for (Contato contato : contatos) {
+
+
                 writer.write(contato.toCSV());
                 writer.newLine();
             }
@@ -33,18 +35,11 @@ public class ArquivoContato implements RepositorioContato {
                     "Não foi possível salvar os contatos no arquivo: " + e.getMessage());
         }
     }
-
-    /**
-     * Carrega os contatos armazenados no arquivo CSV.
-     * Cada linha do arquivo é convertida novamente em um
-     * objeto Contato utilizando o metodo fromCSV().
-     *
-     * Caso o arquivo ainda não exista, ele é criado e uma
-     * lista vazia é retornada.
-     *
-     * @return lista de contatos carregados do arquivo.
-     * @throws ArquivoException caso ocorra erro na leitura do arquivo.
-     */
+    // Carrega os contatos do arquivo CSV.
+    // Converte cada linha em um objeto Contato usando fromCSV().
+    // Se o arquivo não existir, cria um novo arquivo vazio.
+    // Retorna a lista de contatos carregados.
+    // Lança ArquivoException em caso de erro na leitura.
     @Override
     public ArrayList<Contato> carregar() throws ArquivoException {
 
