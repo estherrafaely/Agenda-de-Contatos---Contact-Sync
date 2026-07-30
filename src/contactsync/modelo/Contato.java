@@ -89,4 +89,31 @@ public class Contato {
                     "\nFavorito: " + (favorito ? "Sim" : "Não") +
                     "\n----------------------------";
     }
+
+
+    public String toCSV() { // Vai converte o contato para uma linha no formato CSV
+        return nome + ";" +
+                telefone + ";" +
+                email + ";" +
+                categoria + ";" +
+                endereco + ";" +
+                observacoes + ";" +
+                favorito;
+    }
+
+    public static Contato fromCSV(String linha) { //Vai cria um contato a partir de uma linha do arquivo CSV
+
+        String[] dados = linha.split(";");// Divide a linha do arquivo em partes usando ";" como separador
+
+        return new Contato( // Cria e retorna um novo objeto Contato com os dados lidos
+                dados[0],
+                dados[1],
+                dados[2],
+                dados[3],
+                dados[4],
+                dados[5],
+                Boolean.parseBoolean(dados[6])
+        );
+    }
+
 }
