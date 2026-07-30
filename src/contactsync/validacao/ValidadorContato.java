@@ -108,6 +108,7 @@ public class ValidadorContato {
 
         for (Contato c : contatos) {
 
+            // Verifica telefone duplicado
             if (c.getTelefone() != null &&
                     c.getTelefone().equals(contato.getTelefone())) {
 
@@ -115,6 +116,7 @@ public class ValidadorContato {
                         "Já existe um contato com esse telefone.");
             }
 
+            // Verifica e-mail duplicado apenas se ele foi informado
             if (contato.getEmail() != null &&
                     !contato.getEmail().isBlank() &&
                     c.getEmail() != null &&

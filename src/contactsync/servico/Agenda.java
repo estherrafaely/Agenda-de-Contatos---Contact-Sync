@@ -32,23 +32,15 @@ public class Agenda {
             ContatoDuplicadoException,
             ArquivoException {
 
-        System.out.println("Recebido: " + contato);
+        ValidadorContato validador = new ValidadorContato();
 
-        ValidadorContato.validarNome(contato.getNome());
-        ValidadorContato.validarTelefone(contato.getTelefone());
-        ValidadorContato.validarEmail(contato.getEmail());
-        ValidadorContato.validarCategoria(contato.getCategoria());
+        // Faz todas as validações
+        validador.validarContato(contato, contatos);
 
-        for (Contato c : contatos) {
-            if (c.getTelefone().equals(contato.getTelefone())
-                    || c.getEmail().equalsIgnoreCase(contato.getEmail())) {
-
-                throw new ContatoDuplicadoException("Contato já cadastrado.");
-            }
-        }
-
+        // Adiciona o contato
         contatos.add(contato);
 
+        // Salva no arquivo
         repositorio.salvar(contatos);
     }
 
