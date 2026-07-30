@@ -25,7 +25,6 @@ public class ArquivoContato implements RepositorioContato {
 
             for (Contato contato : contatos) {
 
-
                 writer.write(contato.toCSV());
                 writer.newLine();
             }
