@@ -61,6 +61,10 @@ public class Agenda {
 
     }
 
+    public void marcaFavorito(String nome) {
+
+    }
+
     public void desmarcarFavorito(String nome){
 
     }
@@ -70,6 +74,8 @@ public class Agenda {
     }
 
     public void carregarContatos() throws ArquivoException{
+
+    }
 
 
 
