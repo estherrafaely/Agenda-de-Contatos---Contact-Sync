@@ -31,26 +31,20 @@ public class Agenda {
             throws CampoObrigatorioException,
             ContatoDuplicadoException,
             ArquivoException {
-
         ValidadorContato validador = new ValidadorContato();
-
         // Faz todas as validações
         validador.validarContato(contato, contatos);
-
         // Adiciona o contato
         contatos.add(contato);
-
         // Salva no arquivo
         repositorio.salvar(contatos);
     }
 
     public void editarContato(String nome, Contato contatoAtualizado)
             throws ContatoNaoEncontradoException, ArquivoException {
-
         for (Contato c : contatos) {
 
             if (c.getNome().equalsIgnoreCase(nome)) {
-
                 c.setNome(contatoAtualizado.getNome());
                 c.setTelefone(contatoAtualizado.getTelefone());
                 c.setEmail(contatoAtualizado.getEmail());
@@ -58,9 +52,7 @@ public class Agenda {
                 c.setEndereco(contatoAtualizado.getEndereco());
                 c.setObservacoes(contatoAtualizado.getObservacoes());
                 c.setFavorito(contatoAtualizado.isFavorito());
-
                 repositorio.salvar(contatos);
-
                 return;
             }
         }

@@ -367,7 +367,7 @@ public class Menu {
     public void desfavoritar() throws ArquivoException {
 
         //Pedir o nome do contato
-        System.out.println("Digite o nome do contato que deseja fovoritar: ");
+        System.out.println("Digite o nome do contato que deseja desfovoritar: ");
         String nome = scanner.nextLine();
 
         //Chamar o metodo da Agenda para desmarcar o contato como favorito
